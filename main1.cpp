@@ -1,13 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
+
 using namespace std;
 
 template <typename C>
-void Print(const C c, const string delim) {
+void Print(const C& c, const string delim) {
 	bool first = true;
-	for (const auto elem : c) {
-		if (!first) cout << delim;
+	for (const auto& elem : c) {
+		if (!first) {
+			cout << delim;
+		}
 		first = false;
 		cout << elem;
 	}
@@ -17,4 +21,5 @@ void Print(const C c, const string delim) {
 int main() {
 	vector<int> data = {1, 2, 3};
 	Print(data, ", ");
+	return 0;
 }
