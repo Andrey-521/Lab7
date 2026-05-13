@@ -1,18 +1,33 @@
 #include <iostream>
+#include <string>
 #include <vector>
+#include <algorithm>
 
+using namespace std;
 template <typename T>
-void Duplicate(std::vector<T>& v) {
-    std::size_t n = v.size();
-    for (std::size_t i = 0; i < n; ++i) {
+
+void Duplicate(vector<T>& v) {
+    size_t original_size = v.size();
+    v.reserve(original_size * 2);
+    for (size_t i = 0; i < original_size; ++i) {
         v.push_back(v[i]);
     }
 }
 
 int main() {
-    std::vector<int> v = {1, 2, 3};
-    Duplicate(v);
-    for (auto x : v) std::cout << x << ' ';
-    std::cout << '\n';
+    vector<int> numbers;
+    int num;
+    while (cin >> num && num != 0) {
+        numbers.push_back(num);
+    }
+
+    if (numbers.empty()) {
+        cout << "No numbers.\n";
+    }
+    else Duplicate(numbers);
+    for (const auto& num : numbers) {
+        cout << num << " ";
+    }
+
     return 0;
 }
