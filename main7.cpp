@@ -1,34 +1,35 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
- 
+#include <string>
+
+using namespace std;
+
 template <typename Iter>
 Iter Unique(Iter first, Iter last) {
     if (first == last) return last;
-    Iter res = first;
-    Iter it = first;
-    ++it;
-    for (; it != last; ++it) {
-        if (!(*res == *it)) {
-            ++res;
-            *res = *it;
+    Iter result = first;
+    while (++first != last) {
+        if (!(*result == *first) && ++result != first) {
+            *result = move(*first);
         }
     }
-    ++res;
-    return res;
+    return ++result;
 }
  
 int main() {
-    std::vector<int> a = {1,1,2,2,2,3,1,1,4};
-    auto new_end = Unique(a.begin(), a.end());
- 
-    std::cout << "New length: " << std::distance(a.begin(), new_end) << "\n";
-    std::cout << "Items up to new_end: ";
-    for (auto it = a.begin(); it != new_end; ++it) std::cout << *it << ' ';
-    std::cout << "\n";
- 
-    std::cout << "Remainder: ";
-    for (auto it = new_end; it != a.end(); ++it) std::cout << *it << ' ';
-    std::cout << "\n";
+    vector<int> v = { 1, 1, 2, 2, 3, 3, 3, 4, 5, 5, 6 };
+    cout << "Before Unique: ";
+    for (const auto& x : v) {
+        cout << x << " ";
+    }
+    cout << "\n";
+
+    auto new_end = Unique(v.begin(), v.end());
+    v.erase(new_end, v.end());
+    cout << "After Unique: ";
+    for (const auto& x : v) {
+        cout << x << " ";
+    }
     return 0;
 }
